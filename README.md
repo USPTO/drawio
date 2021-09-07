@@ -1,11 +1,11 @@
 
 About
 -----
-This is a replication of diagrams.net 15.1.0 release.  The original repository is located at [https://github.com/jgraph/drawio](https://github.com/jgraph/drawio).
+This is a replication of diagrams.net (previously draw.io) 15.1.0 release.  The original repository is located at [https://github.com/jgraph/drawio](https://github.com/jgraph/drawio).
 
 Running
 -------
-Open the [USPTO GitHub pages](https://uspto.github.io/drawio/src/main/webapp/index.html) to start your drawing. 
+Open the [USPTO GitHub pages](https://uspto.github.io/drawio/src/main/webapp/index.html) to start drawing with diagrams.net. 
 
 Supported Browsers
 ------------------
