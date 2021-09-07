@@ -5,7 +5,7 @@ This is a replication of diagrams.net 15.1.0 release.  The original repository i
 
 Running
 -------
-Open [diagrams.net](https://uspto.github.io/drawio/src/main/webapp/index.html).
+Open the [USPTO GitHub pages](https://uspto.github.io/drawio/src/main/webapp/index.html) to start your drawing. 
 
 Supported Browsers
 ------------------
