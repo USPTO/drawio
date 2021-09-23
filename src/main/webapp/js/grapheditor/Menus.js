@@ -612,8 +612,10 @@ Menus.prototype.addInsertTableCellItem = function(menu, parent)
 /**
  * Adds a menu item to insert a table.
  */
-Menus.prototype.addInsertTableItem = function(menu, insertFn, parent)
+Menus.prototype.addInsertTableItem = function(menu, insertFn, parent, showOptions)
 {
+	showOptions = (showOptions != null) ? showOptions : true;
+
 	insertFn = (insertFn != null) ? insertFn : mxUtils.bind(this, function(evt, rows, cols)
 	{
 		var graph = this.editorUi.editor.graph;
@@ -734,14 +736,12 @@ Menus.prototype.addInsertTableItem = function(menu, insertFn, parent)
 	var titleOption = document.createElement('input');
 	titleOption.setAttribute('id', 'geTitleOption');
 	titleOption.setAttribute('type', 'checkbox');
-	elt2.firstChild.appendChild(titleOption);
-	
-	var lbl = document.createElement('label');
-	mxUtils.write(lbl, mxResources.get('title'));
-	lbl.setAttribute('for', 'geTitleOption');
-	elt2.firstChild.appendChild(lbl);
-	
-	mxEvent.addGestureListeners(lbl, null, null, mxUtils.bind(this, function(e)
+
+	var titleLbl = document.createElement('label');
+	mxUtils.write(titleLbl, mxResources.get('title'));
+	titleLbl.setAttribute('for', 'geTitleOption');
+
+	mxEvent.addGestureListeners(titleLbl, null, null, mxUtils.bind(this, function(e)
 	{
 		mxEvent.consume(e);
 	}));
@@ -751,19 +751,15 @@ Menus.prototype.addInsertTableItem = function(menu, insertFn, parent)
 		mxEvent.consume(e);
 	}));
 	
-	mxUtils.br(elt2.firstChild);
-	
 	var containerOption = document.createElement('input');
 	containerOption.setAttribute('id', 'geContainerOption');
 	containerOption.setAttribute('type', 'checkbox');
-	elt2.firstChild.appendChild(containerOption);
 	
-	var lbl = document.createElement('label');
-	mxUtils.write(lbl, mxResources.get('container'));
-	lbl.setAttribute('for', 'geContainerOption');
-	elt2.firstChild.appendChild(lbl);
-	
-	mxEvent.addGestureListeners(lbl, null, null, mxUtils.bind(this, function(e)
+	var containerLbl = document.createElement('label');
+	mxUtils.write(containerLbl, mxResources.get('container'));
+	containerLbl.setAttribute('for', 'geContainerOption');
+
+	mxEvent.addGestureListeners(containerLbl, null, null, mxUtils.bind(this, function(e)
 	{
 		mxEvent.consume(e);
 	}));
@@ -773,8 +769,16 @@ Menus.prototype.addInsertTableItem = function(menu, insertFn, parent)
 		mxEvent.consume(e);
 	}));
 	
-	mxUtils.br(elt2.firstChild);
-	mxUtils.br(elt2.firstChild);
+	if (showOptions)
+	{
+		elt2.firstChild.appendChild(titleOption);
+		elt2.firstChild.appendChild(titleLbl);
+		mxUtils.br(elt2.firstChild);
+		elt2.firstChild.appendChild(containerOption);
+		elt2.firstChild.appendChild(containerLbl);
+		mxUtils.br(elt2.firstChild);
+		mxUtils.br(elt2.firstChild);
+	}
 	
 	var picker = createPicker(5, 5);
 	elt2.firstChild.appendChild(picker);
@@ -850,9 +854,9 @@ Menus.prototype.addInsertTableItem = function(menu, insertFn, parent)
 /**
  * Adds a style change item to the given menu.
  */
-Menus.prototype.edgeStyleChange = function(menu, label, keys, values, sprite, parent, reset)
+Menus.prototype.edgeStyleChange = function(menu, label, keys, values, sprite, parent, reset, image)
 {
-	return this.showIconOnly(menu.addItem(label, null, mxUtils.bind(this, function()
+	return this.showIconOnly(menu.addItem(label, image, mxUtils.bind(this, function()
 	{
 		var graph = this.editorUi.editor.graph;
 		graph.stopEditing(false);
@@ -891,7 +895,8 @@ Menus.prototype.edgeStyleChange = function(menu, label, keys, values, sprite, pa
 				}
 			}
 			
-			this.editorUi.fireEvent(new mxEventObject('styleChanged', 'keys', keys,
+			this.editorUi.fireEvent(new mxEventObject(
+				'styleChanged', 'keys', keys,
 				'values', values, 'cells', edges));
 		}
 		finally
@@ -1296,14 +1301,21 @@ Menus.prototype.addPopupMenuCellItems = function(menu, cell, evt)
 			if (handler instanceof mxEdgeHandler && handler.bends != null && handler.bends.length > 2)
 			{
 				var index = handler.getHandleForEvent(graph.updateMouseEvent(new mxMouseEvent(evt)));
-				
-				// Configures removeWaypoint action before execution
-				// Using trigger parameter is cleaner but have to find waypoint here anyway.
-				var rmWaypointAction = this.editorUi.actions.get('removeWaypoint');
-				rmWaypointAction.handler = handler;
-				rmWaypointAction.index = index;
 
-				isWaypoint = index > 0 && index < handler.bends.length - 1;
+				// Ignores ghosted and virtual waypoints
+				if (index > 0 && index < handler.bends.length - 1 &&
+					(handler.bends[index] == null ||
+					handler.bends[index].node == null ||
+					handler.bends[index].node.style.opacity == ''))
+				{
+					// Configures removeWaypoint action before execution
+					// Using trigger parameter is cleaner but have to find waypoint here anyway.
+					var rmWaypointAction = this.editorUi.actions.get('removeWaypoint');
+					rmWaypointAction.handler = handler;
+					rmWaypointAction.index = index;
+
+					isWaypoint = true;
+				}
 			}
 			
 			menu.addSeparator();

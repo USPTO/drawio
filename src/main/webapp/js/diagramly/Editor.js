@@ -104,14 +104,9 @@
 	Editor.saveImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iYmxhY2siIHdpZHRoPSIxOHB4IiBoZWlnaHQ9IjE4cHgiPjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMTkgMTJ2N0g1di03SDN2N2MwIDEuMS45IDIgMiAyaDE0YzEuMSAwIDItLjkgMi0ydi03aC0yem0tNiAuNjdsMi41OS0yLjU4TDE3IDExLjVsLTUgNS01LTUgMS40MS0xLjQxTDExIDEyLjY3VjNoMnoiLz48L3N2Zz4=';
 
 	/**
-	 * Used in the GraphViewer lightbox.
-	 */
-	Editor.closeImage = (!mxClient.IS_SVG) ? IMAGE_PATH + '/delete.png' : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAApVBMVEUAAAD////k5OT///8AAAB1dXXMzMz9/f39/f37+/v5+fn+/v7///9iYmJaWlqFhYWnp6ejo6OHh4f////////////////7+/v5+fnx8fH///8AAAD///8bGxv7+/v5+fkoKCghISFDQ0MYGBjh4eHY2Njb29tQUFBvb29HR0c/Pz82NjYrKyu/v78SEhLu7u7s7OzV1dVVVVU7OzsVFRXAv78QEBBzqehMAAAAG3RSTlMAA/7p/vz5xZlrTiPL/v78+/v7+OXd2TYQDs8L70ZbAAABKUlEQVQoz3VS13LCMBBUXHChd8iukDslQChJ/v/TchaG4cXS+OSb1c7trU7V60OpdRz2ZtNZL4zXNlcN8BEtSG6+NxIXkeRPoBuQ1cjvZ31/VJFB10ISli6diYfH8iYO3WUNCcNlB0gTrXOtkxTo0O1aKKiBBMhhv2MNBQKoiA5wxlZo0JDzD3AYKbWacyj3fs01wxey0pyEP+R8pWKWXoqtIZ0DDg5pbki9krEKOa6LVDQsdoXEsi46Zqh69KFz7B1u7Hb2yDV8firXDKBlZ4UFiswKGRhXTS93/ECK7yxnJ3+S3y/ThpO+cfSD017nqa18aasabU0/t7d+tk0/1oMEJ1NaD67iwdF68OabFSLn+eHb0+vjy+uk8br9fdrftH0O2menfd7+AQfYM/lNjoDHAAAAAElFTkSuQmCC';
-
-	/**
 	 * 
 	 */
-	Editor.plusImage = (!mxClient.IS_SVG) ? IMAGE_PATH + '/plus.png' : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDdCMTdENjVCOEM4MTFFNDlCRjVBNDdCODU5NjNBNUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDdCMTdENjZCOEM4MTFFNDlCRjVBNDdCODU5NjNBNUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowN0IxN0Q2M0I4QzgxMUU0OUJGNUE0N0I4NTk2M0E1QyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowN0IxN0Q2NEI4QzgxMUU0OUJGNUE0N0I4NTk2M0E1QyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtjrjmgAAAAtSURBVHjaYvz//z8DMigvLwcLdHZ2MiKLMzEQCaivkLGsrOw/dU0cAr4GCDAARQsQbTFrv10AAAAASUVORK5CYII=';
+	Editor.smallPlusImage = (!mxClient.IS_SVG) ? IMAGE_PATH + '/plus.png' : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDdCMTdENjVCOEM4MTFFNDlCRjVBNDdCODU5NjNBNUMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDdCMTdENjZCOEM4MTFFNDlCRjVBNDdCODU5NjNBNUMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowN0IxN0Q2M0I4QzgxMUU0OUJGNUE0N0I4NTk2M0E1QyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowN0IxN0Q2NEI4QzgxMUU0OUJGNUE0N0I4NTk2M0E1QyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PtjrjmgAAAAtSURBVHjaYvz//z8DMigvLwcLdHZ2MiKLMzEQCaivkLGsrOw/dU0cAr4GCDAARQsQbTFrv10AAAAASUVORK5CYII=';
 	
 	/**
 	 * 
@@ -128,11 +123,6 @@
 	 */
 	Editor.commentImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjEuOTkgNGMwLTEuMS0uODktMi0xLjk5LTJINGMtMS4xIDAtMiAuOS0yIDJ2MTJjMCAxLjEuOSAyIDIgMmgxNGw0IDQtLjAxLTE4ek0xOCAxNEg2di0yaDEydjJ6bTAtM0g2VjloMTJ2MnptMC0zSDZWNmgxMnYyeiIvPjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiIGZpbGw9Im5vbmUiLz48L3N2Zz4=';
 
-	/**
-	 * 
-	 */
-	Editor.commentImageInverted = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABLElEQVRYR+2Wvy4FQRjFf4dINAq9XqtSaVRqXArPINEodUqlhxC5/pU6nYdQSHQeQTRHNtmVuXuXrIxv1k1sN5vMOb85c75kxMCfBvZnCsD2ErAGzAfAvUt6THUnAGwfAWfAQoB5I3kh6aBZfALYXgGeg80b31VJT9UiBRgB48CTp9Lbku7aAPvAZSGAHUm3swEgKWtUbbsj1f4JDA4AbGb24iErgUzzr7bvSrrpVcKgK5ghgKAO9E/gvwNBJRxJuu41BUEd+BFARA3+JsAWcB9x3A7NzgSqt+ALsFwAYhqgMrW9Ub8J14G5QJBugAhD2yfAaUt7T9LVxBhGmDeato/rZJtfZQHq600hygPUEIfAOTAMQALxWrQD7X7ZXpT0VqyE3xU868n9G5PzASPvpiHavBAUAAAAAElFTkSuQmCC';
-	
 	/**
 	 * 
 	 */
@@ -159,6 +149,16 @@
 	Editor.syncProblemImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMyAxMmMwIDIuMjEuOTEgNC4yIDIuMzYgNS42NEwzIDIwaDZ2LTZsLTIuMjQgMi4yNEM1LjY4IDE1LjE1IDUgMTMuNjYgNSAxMmMwLTIuNjEgMS42Ny00LjgzIDQtNS42NVY0LjI2QzUuNTUgNS4xNSAzIDguMjcgMyAxMnptOCA1aDJ2LTJoLTJ2MnpNMjEgNGgtNnY2bDIuMjQtMi4yNEMxOC4zMiA4Ljg1IDE5IDEwLjM0IDE5IDEyYzAgMi42MS0xLjY3IDQuODMtNCA1LjY1djIuMDljMy40NS0uODkgNi00LjAxIDYtNy43NCAwLTIuMjEtLjkxLTQuMi0yLjM2LTUuNjRMMjEgNHptLTEwIDloMlY3aC0ydjZ6Ii8+PC9zdmc+';
 	
 	/**
+	 *
+	 */
+	Editor.drawLogoImage = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJFYmVuZV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjUwIDI1MCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMjUwIDI1MDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MntmaWxsOiMwMDA7fQo8L3N0eWxlPgo8cGF0aCBjbGFzcz0ic3QyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLDE1KSIgZD0iTTE5Ny4xLDEzOC4zaC0yMy43bC0yNS00Mi43YzUuNy0xLjIsOS44LTYuMiw5LjctMTJWNTEuNWMwLTYuOC01LjQtMTIuMy0xMi4yLTEyLjNjMCwwLTAuMSwwLTAuMSwwaC00MS43CgljLTYuOCwwLTEyLjMsNS40LTEyLjMsMTIuMmMwLDAsMCwwLjEsMCwwLjF2MzIuMWMwLDUuOCw0LDEwLjgsOS43LDEybC0yNSw0Mi43SDUyLjljLTYuOCwwLTEyLjMsNS40LTEyLjMsMTIuMmMwLDAsMCwwLjEsMCwwLjEKCXYzMi4xYzAsNi44LDUuNCwxMi4zLDEyLjIsMTIuM2MwLDAsMC4xLDAsMC4xLDBoNDEuN2M2LjgsMCwxMi4zLTUuNCwxMi4zLTEyLjJjMCwwLDAtMC4xLDAtMC4xdi0zMi4xYzAtNi44LTUuNC0xMi4zLTEyLjItMTIuMwoJYzAsMC0wLjEsMC0wLjEsMGgtNGwyNC44LTQyLjRoMTkuM2wyNC45LDQyLjRoLTQuMWMtNi44LDAtMTIuMyw1LjQtMTIuMywxMi4yYzAsMCwwLDAuMSwwLDAuMXYzMi4xYzAsNi44LDUuNCwxMi4zLDEyLjIsMTIuMwoJYzAsMCwwLjEsMCwwLjEsMGg0MS43YzYuOCwwLDEyLjMtNS40LDEyLjMtMTIuMmMwLDAsMC0wLjEsMC0wLjF2LTMyLjFjMC02LjgtNS40LTEyLjMtMTIuMi0xMi4zCglDMTk3LjIsMTM4LjMsMTk3LjIsMTM4LjMsMTk3LjEsMTM4LjN6Ii8+Cjwvc3ZnPgo=';
+
+	/**
+	 * 
+	 */
+	Editor.tailSpin = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9Ii0yIC0yIDQ0IDQ0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogICAgPGRlZnM+CiAgICAgICAgPGxpbmVhckdyYWRpZW50IHgxPSI4LjA0MiUiIHkxPSIwJSIgeDI9IjY1LjY4MiUiIHkyPSIyMy44NjUlIiBpZD0iYSI+CiAgICAgICAgICAgIDxzdG9wIHN0b3AtY29sb3I9IiM4MDgwODAiIHN0b3Atb3BhY2l0eT0iMCIgb2Zmc2V0PSIwJSIvPgogICAgICAgICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjODA4MDgwIiBzdG9wLW9wYWNpdHk9Ii42MzEiIG9mZnNldD0iNjMuMTQ2JSIvPgogICAgICAgICAgICA8c3RvcCBzdG9wLWNvbG9yPSIjODA4MDgwIiBvZmZzZXQ9IjEwMCUiLz4KICAgICAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPC9kZWZzPgogICAgPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxIDEpIj4KICAgICAgICAgICAgPHBhdGggZD0iTTM2IDE4YzAtOS45NC04LjA2LTE4LTE4LTE4IiBzdHJva2U9InVybCgjYSkiIHN0cm9rZS13aWR0aD0iNiI+CiAgICAgICAgICAgICAgICA8YW5pbWF0ZVRyYW5zZm9ybQogICAgICAgICAgICAgICAgICAgIGF0dHJpYnV0ZU5hbWU9InRyYW5zZm9ybSIKICAgICAgICAgICAgICAgICAgICB0eXBlPSJyb3RhdGUiCiAgICAgICAgICAgICAgICAgICAgZnJvbT0iMCAxOCAxOCIKICAgICAgICAgICAgICAgICAgICB0bz0iMzYwIDE4IDE4IgogICAgICAgICAgICAgICAgICAgIGR1cj0iMC45cyIKICAgICAgICAgICAgICAgICAgICByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIgLz4KICAgICAgICAgICAgPC9wYXRoPgogICAgICAgICAgICA8Y2lyY2xlIGZpbGw9IiM4MDgwODAiIGN4PSIzNiIgY3k9IjE4IiByPSIxIj4KICAgICAgICAgICAgICAgIDxhbmltYXRlVHJhbnNmb3JtCiAgICAgICAgICAgICAgICAgICAgYXR0cmlidXRlTmFtZT0idHJhbnNmb3JtIgogICAgICAgICAgICAgICAgICAgIHR5cGU9InJvdGF0ZSIKICAgICAgICAgICAgICAgICAgICBmcm9tPSIwIDE4IDE4IgogICAgICAgICAgICAgICAgICAgIHRvPSIzNjAgMTggMTgiCiAgICAgICAgICAgICAgICAgICAgZHVyPSIwLjlzIgogICAgICAgICAgICAgICAgICAgIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiAvPgogICAgICAgICAgICA8L2NpcmNsZT4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo=';
+
+	/**
 	 * Used in the GraphViewer lightbox.
 	 */
 	Editor.tweetImage = IMAGE_PATH + '/tweet.png';
@@ -169,25 +169,30 @@
 	Editor.facebookImage = IMAGE_PATH + '/facebook.png';
 
 	/**
-	 * Blank 1x1 pixel transparent PNG image.
+	 *
 	 */
 	Editor.blankImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg==';
 
 	/**
-	 * Blank 1x1 pixel transparent PNG image.
+	 *
 	 */
 	Editor.hiResImage = (mxClient.IS_SVG) ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAA+CAMAAACLMWy1AAAAh1BMVEUAAABMTExERERBQUFBQUFFRUVAQEBCQkJAQEA6OjpDQ0NKSkpBQUFBQUFERERERERBQUFCQkJCQkJCQkJJSUlBQUFCQkJDQ0NDQ0NCQkJDQ0NBQUFBQUFCQkJBQUFCQkJCQkJDQ0NCQkJHR0dBQUFCQkJCQkJAQEBCQkJDQ0NAQEBERERCQkIk1hS2AAAAKnRSTlMAAjj96BL7PgQFRwfu3TYazKuVjRXl1V1DPCn1uLGjnWNVIgy9hU40eGqPkM38AAACG0lEQVRYw+2X63KbMBCFzwZblgGDceN74muatpLe//m6MHV3gHGFAv2RjM94MAbxzdnVsQbBDKwH8AH8MDAyafzjqYeyOG04XE7RS8nIRDXg6BlT+rA0nmtAPh+NQRDxIASIMG44rAMrGunBgHwy3uUldxggIStGKp2f+DQc2O4h4eQsX3O2IFB/oEbsjOKbStnjAEA+zJ0ylZTbgvoDn8xNyn6Dbj5Kd4GsNpABa6duQPfSdEj88TgMAhKuCWjAkgmFXPLnsD0pWd3OFGdrMugQII/eOMPEiGOzqPMIeWrcSoMCg71W1pXBPvCP+gS/OdXqQ3uW23+93XGWLl/OaBb805bNcBPoEIcVJsnHzcxpZH86u5KZ9gDby5dQCcnKqdbke4ItI4Tzd7IW9hZQt4EO6GG9b9sYuuK9Wwn8TIr2xKbF2+3Nhr+qxChJ/AI6pIfCu4z4Zowp4ZUNihz79vewzctnHDwTvQO/hCdFBzrUGDOPn2Y/F8YKT4oOATLvlhOznzmBSdFBJWtc58y7r+UVFOCQczy3wpN6pegDqHtsCPTGvH9JuTO0Dyg8icldYPk+RB6g8Aofj4m2EKBvtTmUPD9xDd1pPcSReV2U5iD/ik2yrngtvvqBfPzOvKiDTKTsCdoHZJ7pLLffgTwlJ5vJdtJV2/jiAYaLvLGhMAEDO5QcDg2M/jOw/8Zn+K3ZwJvHT7ZffgC/NvA3zcybTeIfE4EAAAAASUVORK5CYII=' : IMAGE_PATH + '/img-hi-res.png';
 
 	/**
-	 * Blank 1x1 pixel transparent PNG image.
+	 *
 	 */
 	Editor.loResImage = (mxClient.IS_SVG) ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAA+CAMAAACLMWy1AAAAS1BMVEVAQEAAAAA1NTVBQUFDQ0NDQ0NFRUVERERBQUFBQUFBQUFAQEBBQUFBQUFCQkJCQkJCQkJBQUFCQkJDQ0NDQ0NCQkJCQkJCQkJGRkb5/XqTAAAAGXRSTlP+AAWODlASCsesX+Lc2LyWe3pwa1tCPjohjSJfoAAAAI1JREFUWMPt1MkKhTAMRuG0anvneXr/J71nUypKcdqI/N8yhLMKMZE1CahnClDQzMPB44ED3EgeCubgDWnWQMHpwTtKwTe+UHD4sJ94wbUEHHFGhILlYDeSnsQeabeCgsPBgB0MOZZ9oGA5GJFiJSfUULAfjLjARrhCwX7wh2YCDwVbwZkUBKqFFJRN+wOcwSgR2sREcgAAAABJRU5ErkJggg==' : IMAGE_PATH + '/img-lo-res.png';
 
 	/**
-	 * Only needed in browsers with SVG support for export via lightbox toolbar. 
+	 *
 	 */
-	Editor.cameraLargeImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzZweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMzZweCIgZmlsbD0iI0ZGRkZGRiI+PHBhdGggZD0iTTAgMGgyNHYyNEgwVjB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE0LjEyIDRsMS44MyAySDIwdjEySDRWNmg0LjA1bDEuODMtMmg0LjI0TTE1IDJIOUw3LjE3IDRINGMtMS4xIDAtMiAuOS0yIDJ2MTJjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY2YzAtMS4xLS45LTItMi0yaC0zLjE3TDE1IDJ6bS0zIDdjMS42NSAwIDMgMS4zNSAzIDNzLTEuMzUgMy0zIDMtMy0xLjM1LTMtMyAxLjM1LTMgMy0zbTAtMmMtMi43NiAwLTUgMi4yNC01IDVzMi4yNCA1IDUgNSA1LTIuMjQgNS01LTIuMjQtNS01LTV6Ii8+PC9zdmc+';
-	
+	Editor.cameraImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMThweCIgdmlld0JveD0iMCAwIDI0IDI0IiB3aWR0aD0iMThweCIgZmlsbD0iIzAwMDAwMCI+PHBhdGggZD0iTTAgMGgyNHYyNEgwVjB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE0LjEyIDRsMS44MyAySDIwdjEySDRWNmg0LjA1bDEuODMtMmg0LjI0TTE1IDJIOUw3LjE3IDRINGMtMS4xIDAtMiAuOS0yIDJ2MTJjMCAxLjEuOSAyIDIgMmgxNmMxLjEgMCAyLS45IDItMlY2YzAtMS4xLS45LTItMi0yaC0zLjE3TDE1IDJ6bS0zIDdjMS42NSAwIDMgMS4zNSAzIDNzLTEuMzUgMy0zIDMtMy0xLjM1LTMtMyAxLjM1LTMgMy0zbTAtMmMtMi43NiAwLTUgMi4yNC01IDVzMi4yNCA1IDUgNSA1LTIuMjQgNS01LTIuMjQtNS01LTV6Ii8+PC9zdmc+';
+		
+	/**
+	 *
+	 */
+	Editor.tagsImage = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDI0IDI0IiBoZWlnaHQ9IjE4cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjE4cHgiIGZpbGw9IiMwMDAwMDAiPjxnPjxwYXRoIGQ9Ik0wLDBoMjR2MjRIMFYweiIgZmlsbD0ibm9uZSIvPjwvZz48Zz48Zz48cGF0aCBkPSJNMjEuNDEsMTEuNDFsLTguODMtOC44M0MxMi4yMSwyLjIxLDExLjcsMiwxMS4xNywySDRDMi45LDIsMiwyLjksMiw0djcuMTdjMCwwLjUzLDAuMjEsMS4wNCwwLjU5LDEuNDFsOC44Myw4LjgzIGMwLjc4LDAuNzgsMi4wNSwwLjc4LDIuODMsMGw3LjE3LTcuMTdDMjIuMiwxMy40NiwyMi4yLDEyLjIsMjEuNDEsMTEuNDF6IE0xMi44MywyMEw0LDExLjE3VjRoNy4xN0wyMCwxMi44M0wxMi44MywyMHoiLz48Y2lyY2xlIGN4PSI2LjUiIGN5PSI2LjUiIHI9IjEuNSIvPjwvZz48L2c+PC9zdmc+';
+
 	/**
 	 * Broken image symbol for offline SVG.
 	 */
@@ -227,7 +232,7 @@
 	 * Sets the default value for including a copy of the diagram.
 	 * Default is true.
 	 */
-	 Editor.defaultIncludeDiagram = true;
+	Editor.defaultIncludeDiagram = true;
 
 	/**
 	 * Specifies if custom properties should be enabled.
@@ -238,6 +243,16 @@
 		/.*\.draw\.io$/.test(window.location.hostname));
 
 	/**
+	 * Specifies if web fonts are enabled.
+	 */
+	Editor.enableWebFonts = urlParams['safe-style-src'] != '1';
+
+	/**
+	 * Disables the shadow option in the format panel.
+	 */
+	Editor.enableShadowOption = !mxClient.IS_SF;
+
+	/**
 	 * Specifies if XML files should be compressed. Default is true.
 	 */
 	Editor.compressXml = true;
@@ -246,11 +261,6 @@
 	 * Specifies global variables.
 	 */
 	Editor.globalVars = null;
-
-	/**
-	 * Disables the shadow option in the format panel.
-	 */
-	Editor.shadowOptionEnabled = !mxClient.IS_SF;
 
 	/**
 	 * Reference to the config object passed to <configure>.
@@ -377,6 +387,13 @@
 	 * Common properties for all vertices.
 	 */
 	Editor.commonVertexProperties = [
+        {name: 'colspan', dispName: 'Colspan', type: 'int', min: 1, defVal: 1, isVisible: function(state, format)
+        {
+        	var graph = format.editorUi.editor.graph;
+        	
+    		return urlParams['test'] == '1' && state.vertices.length == 1 &&
+				state.edges.length == 0 && graph.isTableCell(state.vertices[0]);
+        }},
         {type: 'separator'},
         {name: 'resizeLastRow', dispName: 'Resize Last Row', type: 'bool', getDefaultValue: function(state, format)
         {
@@ -506,7 +523,8 @@
         	var fillColor = mxUtils.getValue(state.style, mxConstants.STYLE_FILLCOLOR, null);
         	
         	return format.editorUi.editor.graph.isSwimlane(state.vertices[0]) ||
-        		fillColor == null || fillColor == mxConstants.NONE;
+        		fillColor == null || fillColor == mxConstants.NONE ||
+				state.style['pointerEvents'] != null;
         }},
         {name: 'moveCells', dispName: 'Move Cells on Fold', type: 'bool', defVal: false, isVisible: function(state, format)
         {
@@ -2503,6 +2521,12 @@
 			return true;
 		}
 		
+		// Does not use proxy for same domain
+		if (url.substring(0, window.location.origin.length) == window.location.origin)
+		{
+			return true;
+		}
+
 		// Blocked by CSP in production but allowed for hosted deployment
 		if (urlParams['cors'] != null && this.corsRegExp == null)
 		{
@@ -3955,7 +3979,7 @@
 					}
 				});
 				
-				if (!Editor.shadowOptionEnabled)
+				if (!Editor.enableShadowOption)
 				{
 					option.getElementsByTagName('input')[0].setAttribute('disabled', 'disabled');
 					mxUtils.setOpacity(option, 60);
@@ -5826,6 +5850,373 @@
 		}
 	};
 
+	Graph.prototype.createTagsDialog = function(isEnabled, invert, addFn)
+	{
+		var graph = this;
+		var allTags = graph.hiddenTags.slice();
+		
+		var div = document.createElement('div');
+		div.style.userSelect = 'none';
+		div.style.overflow = 'hidden';
+		div.style.padding = '10px';
+		div.style.height = '100%';
+		
+		var tagCloud = document.createElement('div');
+		tagCloud.style.boxSizing = 'border-box';
+		tagCloud.style.borderRadius = '4px';
+		tagCloud.style.userSelect = 'none';
+		tagCloud.style.overflow = 'auto';
+		tagCloud.style.position = 'absolute';
+		tagCloud.style.left = '10px';
+		tagCloud.style.right = '10px';
+		tagCloud.style.top = '10px';
+		tagCloud.style.border = (graph.isEnabled()) ? '1px solid #808080' : 'none';
+		tagCloud.style.bottom = (graph.isEnabled()) ? '48px' : '10px';
+	
+		div.appendChild(tagCloud);
+
+		function removeInvisibleSelectionCells()
+		{
+			var cells = graph.getSelectionCells();
+			var visible = [];
+
+			for (var i = 0; i < cells.length; i++)
+			{
+				if (graph.isCellVisible(cells[i]))
+				{
+					visible.push(cells[i]);	
+				}
+			}
+
+			graph.setSelectionCells(visible);
+		};
+
+		function setAllVisible(visible)
+		{
+			if (visible)
+			{
+				graph.hiddenTags = [];
+			}
+			else
+			{
+				graph.hiddenTags = allTags.slice();
+			}
+
+			removeInvisibleSelectionCells();
+			graph.refresh();
+		};
+
+		var resetBtn = mxUtils.button(mxResources.get('reset'), function(evt)
+		{
+			graph.hiddenTags = [];
+
+			if (!mxEvent.isShiftDown(evt))
+			{
+				allTags = graph.hiddenTags.slice();
+			}
+
+			removeInvisibleSelectionCells();
+			graph.refresh();
+		});
+		
+		resetBtn.setAttribute('title', mxResources.get('reset'));
+		resetBtn.className = 'geBtn';
+		resetBtn.style.margin = '0 4px 0 0';
+
+		var addBtn = mxUtils.button(mxResources.get('add'), function()
+		{
+			if (addFn != null)
+			{
+				// Takes all tags and callback to update all tags
+				addFn(allTags, function(newAllTags)
+				{
+					allTags = newAllTags;
+					refreshUi();
+				});
+			}
+		});
+		addBtn.setAttribute('title', mxResources.get('add'));
+		addBtn.className = 'geBtn';
+		addBtn.style.margin = '0';
+	
+		graph.addListener(mxEvent.ROOT, function()
+		{
+			allTags = graph.hiddenTags.slice();
+		});
+	
+		function refreshTags(tags, selected)
+		{
+			tagCloud.innerHTML = '';
+	
+			if (tags.length > 0)
+			{
+				var table = document.createElement('table');
+				table.setAttribute('cellpadding', '2');
+				table.style.boxSizing = 'border-box';
+				table.style.tableLayout = 'fixed';
+				table.style.width = '100%';
+	
+				var tbody = document.createElement('tbody');
+
+				if (tags != null && tags.length > 0)
+				{
+					for (var i = 0; i < tags.length; i++)
+					{
+						(function(tag)
+						{
+							function setTagVisible()
+							{
+								var temp = allTags.slice();
+								var index = mxUtils.indexOf(temp, tag);
+								temp.splice(index, 1);
+								graph.hiddenTags = temp;
+								removeInvisibleSelectionCells();
+								graph.refresh();
+							};
+
+							function selectCells()
+							{
+								var cells = graph.getCellsForTags(
+									[tag], null, null, true);
+
+								if (graph.isEnabled())
+								{
+									graph.setSelectionCells(cells);
+								}
+								else
+								{
+									graph.highlightCells(cells);
+								}
+							};
+
+							var visible = mxUtils.indexOf(graph.hiddenTags, tag) < 0;
+							var row = document.createElement('tr');
+							var td = document.createElement('td');
+							td.style.align = 'center';
+							td.style.width = '16px';
+
+							var img = document.createElement('img');
+							img.setAttribute('src', visible ? Editor.visibleImage : Editor.hiddenImage);
+							img.setAttribute('title', mxResources.get(visible ? 'hideIt' : 'show', [tag]));
+							mxUtils.setOpacity(img, visible ? 75 : 25);
+							img.style.verticalAlign = 'middle';
+							img.style.cursor = 'pointer';
+							img.style.width = '16px';
+							
+							if (invert || Editor.isDarkMode())
+							{
+								img.style.filter = 'invert(100%)';
+							}
+							
+							td.appendChild(img);
+
+							mxEvent.addListener(img, 'click', function(evt)
+							{
+								var idx = mxUtils.indexOf(graph.hiddenTags, tag);
+
+								if (mxEvent.isShiftDown(evt))
+								{
+									setAllVisible(mxUtils.indexOf(graph.hiddenTags, tag) >= 0);
+								}
+								else
+								{
+									if (idx < 0)
+									{
+										graph.hiddenTags.push(tag);
+									}
+									else if (idx >= 0)
+									{
+										graph.hiddenTags.splice(idx, 1);
+									}
+
+									removeInvisibleSelectionCells();
+									graph.refresh();
+								}
+
+								mxEvent.consume(evt);
+							});
+							
+							row.appendChild(td);
+
+							td = document.createElement('td');
+							td.style.overflow = 'hidden';
+							td.style.whiteSpace = 'nowrap';
+							td.style.textOverflow = 'ellipsis';
+							td.style.verticalAlign = 'middle';
+							td.style.cursor = 'pointer';
+							td.setAttribute('title', tag);
+	
+							a = document.createElement('a');
+							mxUtils.write(a, tag);
+							a.style.textOverflow = 'ellipsis';
+							a.style.position = 'relative';
+							mxUtils.setOpacity(a, visible ? 100 : 40);
+							td.appendChild(a);
+	
+							mxEvent.addListener(td, 'click', (function(evt)
+							{
+								if (mxEvent.isShiftDown(evt))
+								{
+									setAllVisible(true);
+									selectCells();	
+								}
+								else
+								{
+									if (visible && graph.hiddenTags.length > 0)
+									{
+										setAllVisible(true);
+									}
+									else
+									{
+										setTagVisible();
+									}
+								}
+
+								mxEvent.consume(evt);
+							}));
+
+							row.appendChild(td);
+
+							if (graph.isEnabled())
+							{
+								td = document.createElement('td');
+								td.style.verticalAlign = 'middle';
+								td.style.textAlign = 'center';
+								td.style.width = '18px';
+	
+								if (selected == null)
+								{
+									td.style.align = 'center';
+									td.style.width = '16px';
+		
+									var img = document.createElement('img');
+									img.setAttribute('src', Editor.crossImage);
+									img.setAttribute('title', mxResources.get('removeIt', [tag]));
+									mxUtils.setOpacity(img, visible ? 75 : 25);
+									img.style.verticalAlign = 'middle';
+									img.style.cursor = 'pointer';
+									img.style.width = '16px';
+
+									if (invert || Editor.isDarkMode())
+									{
+										img.style.filter = 'invert(100%)';
+									}
+
+									mxEvent.addListener(img, 'click', function(evt)
+									{
+										var idx = mxUtils.indexOf(allTags, tag);
+
+										if (idx >= 0)
+										{
+											allTags.splice(idx, 1);
+										}
+
+										graph.removeTagsForCells(
+											graph.model.getDescendants(
+											graph.model.getRoot()), [tag]);
+										graph.refresh();
+
+										mxEvent.consume(evt);
+									});
+
+									td.appendChild(img);
+								}
+								else
+								{
+									var cb2 = document.createElement('input');
+									cb2.setAttribute('type', 'checkbox');
+									cb2.style.margin = '0px';
+		
+									cb2.defaultChecked = (selected != null &&
+										mxUtils.indexOf(selected, tag) >= 0);
+									cb2.checked = cb2.defaultChecked;
+									cb2.style.background = 'transparent';
+									cb2.setAttribute('title', mxResources.get(
+										cb2.defaultChecked ?
+										'removeIt' : 'add', [tag]));
+		
+									mxEvent.addListener(cb2, 'change', function(evt)
+									{
+										if (cb2.checked)
+										{
+											graph.addTagsForCells(graph.getSelectionCells(), [tag]);
+										}
+										else
+										{
+											graph.removeTagsForCells(graph.getSelectionCells(), [tag]);
+										}
+									
+										mxEvent.consume(evt);
+									});
+		
+									td.appendChild(cb2);
+								}
+
+								row.appendChild(td);
+							}
+	
+							tbody.appendChild(row);
+						})(tags[i]);
+					}
+				}
+	
+				table.appendChild(tbody);
+				tagCloud.appendChild(table);
+			}
+		};
+	
+		var refreshUi = mxUtils.bind(this, function(sender, evt)
+		{
+			if (isEnabled())
+			{
+				var tags = graph.getAllTags();
+	
+				for (var i = 0; i < tags.length; i++)
+				{
+					if (mxUtils.indexOf(allTags, tags[i]) < 0)
+					{
+						allTags.push(tags[i]);
+					}
+				}
+	
+				allTags.sort();
+	
+				if (graph.isSelectionEmpty())
+				{
+					refreshTags(allTags);
+				}
+				else
+				{
+					refreshTags(allTags, graph.getCommonTagsForCells(
+						graph.getSelectionCells()));
+				}
+			}
+		});
+	
+		graph.selectionModel.addListener(mxEvent.CHANGE, refreshUi);
+		graph.model.addListener(mxEvent.CHANGE, refreshUi);
+		graph.addListener(mxEvent.REFRESH, refreshUi);
+	
+		var footer = document.createElement('div');
+		footer.style.boxSizing = 'border-box';
+		footer.style.whiteSpace = 'nowrap';
+		footer.style.position = 'absolute';
+		footer.style.overflow = 'hidden';
+		footer.style.bottom = '0px';
+		footer.style.height = '42px';
+		footer.style.right = '10px';
+		footer.style.left = '10px';
+
+		if (graph.isEnabled())
+		{
+			footer.appendChild(resetBtn);
+			footer.appendChild(addBtn);
+			div.appendChild(footer);
+		}
+
+		return {div: div, refresh: refreshUi};
+	};
+	
 	/**
 	 * Returns all custom fonts (old and new).
 	 */
@@ -5994,7 +6385,8 @@
 		{
 			temp = this.stylesheet;
 			tempBg = this.defaultPageBackgroundColor;
-			this.defaultPageBackgroundColor = this.defaultThemeName == 'darkTheme' ? '#ffffff' : '#2a2a2a';
+			this.defaultPageBackgroundColor = (this.defaultThemeName == 'darkTheme') ?
+				'#ffffff' : '#2a2a2a';
 			this.stylesheet = this.getDefaultStylesheet();
 			// LATER: Fix math export in dark mode by fetching text nodes before
 			// calling refresh and changing the font color in-place
@@ -6140,7 +6532,16 @@
 		}
 	};
 
-					
+	/**
+	 * Updates the SVG for the background image if it references another page.
+	 */
+	var graphRefresh = Graph.prototype.refresh;
+	Graph.prototype.refresh = function()
+	{
+		graphRefresh.apply(this, arguments);
+		this.refreshBackgroundImage();
+	};
+				 
 	/**
 	 * Updates the SVG for the background image if it references another page.
 	 */
@@ -6576,11 +6977,10 @@
 	 * Handles each action in the action array of a custom link. This code
 	 * handles toggle actions for cell IDs.
 	 */
-	Graph.prototype.getCellsForAction = function(action, includeLayers)
+	Graph.prototype.getCellsForAction = function(action, layers)
 	{
 		var result = this.getCellsById(action.cells).concat(
-			this.getCellsForTags(action.tags,
-				null, null, includeLayers));
+			this.getCellsForTags(action.tags, null, layers));
 
 		// Removes excluded cells
 		if (action.excludeCells != null)
@@ -6660,7 +7060,7 @@
 		}
 		else
 		{
-			var tmp = tags.toLowerCase().split(' ');
+			var tmp = tags.split(' ');
 
 			if (tmp.length > this.hiddenTags.length)
 			{
@@ -6700,7 +7100,7 @@
 			{
 				if (tagList[i].length > 0)
 				{
-					lookup[tagList[i].toLowerCase()] = true;
+					lookup[tagList[i]] = true;
 					tagCount++;
 				}
 			}
@@ -6715,7 +7115,7 @@
 	
 					if (tags.length > 0)
 					{
-						var tmp = tags.toLowerCase().split(' ');
+						var tmp = tags.split(' ');
 						
 						if (tmp.length >= tagList.length)
 						{
@@ -6733,7 +7133,7 @@
 						}
 					}
 					
-					if (match && (!checkVisible || this.isCellVisible(cells[i])))
+					if (match && ((checkVisible != true) || this.isCellVisible(cells[i])))
 					{
 						result.push(cells[i]);
 					}
@@ -6769,7 +7169,7 @@
  
 			if (tags.length > 0)
 			{
-				var tokens = tags.toLowerCase().split(' ');
+				var tokens = tags.split(' ');
 				var temp = {};
 				 
 				for (var j = 0; j < tokens.length; j++)
@@ -6806,7 +7206,7 @@
 
 			if (tags.length > 0)
 			{
-				var t = tags.toLowerCase().split(' ');
+				var t = tags.split(' ');
 				
 				for (var j = 0; j < t.length; j++)
 				{
@@ -6844,7 +7244,7 @@
 				for (var i = 0; i < cells.length; i++)
 				{
 					var temp = this.getTagsForCell(cells[i]);
-					var tags = temp.toLowerCase().split(' ');
+					var tags = temp.split(' ');
 					var changed = false;
 		
 					for (var j = 0; j < tagList.length; j++)

@@ -7550,57 +7550,11 @@ var FreehandWindow = function(editorUi, x, y, w, h)
 var TagsWindow = function(editorUi, x, y, w, h)
 {
 	var graph = editorUi.editor.graph;
-	var allTags = [];
 
-	var div = document.createElement('div');
-	div.style.userSelect = 'none';
-	div.style.overflow = 'hidden';
-	div.style.padding = '10px';
-	div.style.height = '100%';
-	
-	var tagCloud = document.createElement('div');
-	tagCloud.style.border = '1px solid #808080';
-	tagCloud.style.boxSizing = 'border-box';
-	tagCloud.style.borderRadius = '4px';
-	tagCloud.style.userSelect = 'none';
-	tagCloud.style.overflowY = 'scroll';
-	tagCloud.style.position = 'absolute';
-	tagCloud.style.left = '10px';
-	tagCloud.style.right = '10px';
-	tagCloud.style.top = '10px';
-	tagCloud.style.bottom = '68px';
-
-	div.appendChild(tagCloud);
-	
-	var options = document.createElement('div');
-	options.style.position = 'absolute';
-	options.style.left = '10px';
-	options.style.right = '10px';
-	options.style.height = '10px';
-	options.style.bottom = '54px';
-
-	var removeCb = document.createElement('input');
-	removeCb.setAttribute('type', 'checkbox');
-	removeCb.setAttribute('id', 'geRemoveUnusedTags');
-	removeCb.style.marginRight = '8px';
-	options.appendChild(removeCb);
-
-	var span = document.createElement('label');
-	span.setAttribute('for', 'geRemoveUnusedTags');
-	mxUtils.write(span, mxResources.get('removeUnusedTags'));
-	span.style.textOverflow = 'ellipsis';
-	span.style.position = 'relative';
-	span.style.top = '-1px';
-	options.appendChild(span);
-	div.appendChild(options);
-
-	mxEvent.addListener(removeCb, 'change', function(evt)
+	var tagsComponent = editorUi.editor.graph.createTagsDialog(mxUtils.bind(this, function()
 	{
-		refreshUi();
-		mxEvent.consume(evt);
-	});
-
-	var addBtn = mxUtils.button(mxResources.get('add') + '...', function()
+		return this.window.isVisible();
+	}), null, function(allTags, updateFn)
 	{
 		if (graph.isEnabled())
 		{
@@ -7615,11 +7569,12 @@ var TagsWindow = function(editorUi, x, y, w, h)
 
 					for (var i = 0; i < temp.length; i++)
 					{
-						var tag = mxUtils.trim(temp[i]);
+						var token = mxUtils.trim(temp[i]);
 
-						if (tag != '')
+						if (token != '' && mxUtils.indexOf(
+							allTags, token) < 0)
 						{
-							tags.push(tag);
+							tags.push(token);
 						}
 					}
 
@@ -7627,8 +7582,7 @@ var TagsWindow = function(editorUi, x, y, w, h)
 					{
 						if (graph.isSelectionEmpty())
 						{
-							allTags = allTags.concat(tags);
-							refreshUi();
+							updateFn(allTags.concat(tags));
 						}
 						else
 						{
@@ -7642,347 +7596,18 @@ var TagsWindow = function(editorUi, x, y, w, h)
 			dlg.init();
 		}
 	});
-	
-	addBtn.setAttribute('title', mxResources.get('add'));
-	addBtn.className = 'geBtn';
-	addBtn.marginTop = '4px';
 
-	graph.addListener(mxEvent.ROOT, function()
-	{
-		allTags = [];
-	});
-
-	function refreshButtons()
-	{
-		if (graph.isSelectionEmpty() && removeCb.checked)
-		{
-			addBtn.setAttribute('disabled', 'disabled');
-		}
-		else
-		{
-			addBtn.removeAttribute('disabled');
-		}
-	};
-
-	function refreshTags(tags, selected)
-	{
-		tagCloud.innerHTML = '';
-
-		if (tags.length > 0)
-		{
-			var table = document.createElement('table');
-			table.setAttribute('cellpadding', '2');
-			table.style.boxSizing = 'border-box';
-			table.style.width = '100%';
-
-			var tbody = document.createElement('tbody');
-
-			var row = document.createElement('tr');
-			var td = document.createElement('td');
-			var a = document.createElement('a');
-			a.style.fontSize = '10px';
-			a.style.cursor = 'pointer';
-			a.setAttribute('title', mxResources.get(
-				(graph.hiddenTags.length == 0) ?
-				'selectNone' : 'selectAll'));
-			mxUtils.write(a, mxResources.get('show'));
-			td.appendChild(a);
-			row.appendChild(td);
-
-			mxEvent.addListener(a, 'click', function(evt)
-			{
-				if (graph.hiddenTags.length == 0)
-				{
-					graph.hiddenTags = allTags.slice();
-				}
-				else
-				{
-					graph.hiddenTags = [];
-				}
-
-				graph.clearSelection();
-				graph.refresh();
-
-				mxEvent.consume(evt);
-			});
-
-			if (graph.isEnabled())
-			{
-				td = document.createElement('td');
-				a = document.createElement('a');
-				a.style.fontSize = '10px';
-				mxUtils.write(a, mxResources.get('tags'));
-				td.appendChild(a);
-
-				if (graph.isEnabled() && !graph.isSelectionEmpty())
-				{
-					a.setAttribute('title', mxResources.get('selectAll'));
-					a.style.cursor = 'pointer';
-
-					mxEvent.addListener(a, 'click', function(evt)
-					{
-						graph.addTagsForCells(graph.getSelectionCells(), allTags);
-						graph.refresh();
-
-						mxEvent.consume(evt);
-					});
-				}
-
-				row.appendChild(td);
-			}
-
-			td = document.createElement('td');
-
-			a = document.createElement('a');
-			a.style.fontSize = '10px';
-			a.style.cursor = 'pointer';
-			a.setAttribute('title', mxResources.get('selectAll') +
-				' (' + mxResources.get('allTags') + ')');
-			mxUtils.write(a, mxResources.get('select'));
-
-			mxEvent.addListener(a, 'click', function(evt)
-			{
-				var cells = graph.getCellsForTags([]);
-
-				if (graph.isEnabled())
-				{
-					graph.setSelectionCells(cells, null, null, true);
-				}
-				else
-				{
-					graph.highlightCells(cells);
-				}
-
-				refreshUi();
-				mxEvent.consume(evt);
-			});
-
-			td.appendChild(a);
-
-			td.style.width = '100%';
-			row.appendChild(td);
-			tbody.appendChild(row);
-
-			var td2 = document.createElement('td');
-
-			if (tags != null && tags.length > 0)
-			{
-				for (var i = 0; i < tags.length; i++)
-				{
-					(function(tag)
-					{
-						var row = document.createElement('tr');
-						var td = document.createElement('td');
-						td.style.textAlign = 'center';
-
-						var cb = document.createElement('input');
-						cb.setAttribute('type', 'checkbox');
-						cb.style.marginRight = '4px';
-
-						cb.defaultChecked = mxUtils.indexOf(graph.hiddenTags, tag) < 0;
-						cb.checked = cb.defaultChecked;
-						cb.setAttribute('title', mxResources.get(
-							cb.defaultChecked ? 'hide' : 'show'));
-
-						mxEvent.addListener(cb, 'change', function(evt)
-						{
-							var idx = mxUtils.indexOf(graph.hiddenTags, tag)
-
-							if (idx < 0 && !cb.checked)
-							{
-								graph.hiddenTags.push(tag);
-							}
-							else if (idx >= 0 && cb.checked)
-							{
-								graph.hiddenTags.splice(idx, 1);
-							}
-
-							graph.clearSelection();
-							graph.refresh();
-
-							mxEvent.consume(evt);
-						});
-
-						td.appendChild(cb);
-						row.appendChild(td);
-			
-						if (graph.isEnabled())
-						{
-							td = document.createElement('td');
-							td.style.textAlign = 'center';
-
-							var cb2 = document.createElement('input');
-							cb2.setAttribute('type', 'checkbox');
-							cb2.style.marginRight = '8px';
-
-							cb2.defaultChecked = (selected != null && mxUtils.indexOf(selected, tag) >= 0);
-							cb2.checked = cb2.defaultChecked;
-							cb2.setAttribute('title', mxResources.get(
-								cb2.defaultChecked ? 'removeIt' : 'add',
-								['']));
-
-							if (selected == null)
-							{
-								cb2.setAttribute('disabled', 'disabled');
-							}
-							else
-							{
-								mxEvent.addListener(cb2, 'change', function(evt)
-								{
-									if (cb2.checked)
-									{
-										graph.addTagsForCells(graph.getSelectionCells(), [tag]);
-									}
-									else
-									{
-										graph.removeTagsForCells(graph.getSelectionCells(), [tag]);
-									}
-								
-									mxEvent.consume(evt);
-								});
-							}
-
-							td.appendChild(cb2);
-							row.appendChild(td);
-						}
-
-						td = document.createElement('td');
-
-						a = document.createElement('a');
-						mxUtils.write(a, tag);
-						a.setAttribute('title', mxResources.get('selectAll') +
-							' (' + tag + ')');
-						a.style.textOverflow = 'ellipsis';
-						a.style.position = 'relative';
-						a.style.cursor = 'pointer';
-						a.style.top = '-1px';
-						td.appendChild(a);
-
-						mxEvent.addListener(a, 'click', (function()
-						{
-							return function(evt)
-							{
-								if (!cb.checked)
-								{
-									cb.click();
-								}
-
-								var cells = graph.getCellsForTags(
-									[tag], null, null, true);
-
-								if (graph.isEnabled())
-								{
-									graph.setSelectionCells(cells);
-								}
-								else
-								{
-									graph.highlightCells(cells);
-								}
-
-								mxEvent.consume(evt);
-							};
-						})());
-						
-						row.appendChild(td);
-						tbody.appendChild(row);
-					})(tags[i]);
-				}
-			}
-
-			table.appendChild(tbody);
-			tagCloud.appendChild(table);
-		}
-		
-		refreshButtons();
-	};
-
-	var refreshUi = mxUtils.bind(this, function()
-	{
-		if (this.window.isVisible())
-		{
-			var tags = graph.getAllTags();
-
-			if (removeCb.checked)
-			{
-				allTags = tags;
-			}
-			else
-			{
-				for (var i = 0; i < tags.length; i++)
-				{
-					if (mxUtils.indexOf(allTags, tags[i]) < 0)
-					{
-						allTags.push(tags[i]);
-					}
-				}
-			}
-
-			allTags.sort();
-
-			if (graph.isSelectionEmpty())
-			{
-				refreshTags(allTags);
-			}
-			else
-			{
-				refreshTags(allTags, graph.getCommonTagsForCells(
-					graph.getSelectionCells()));
-			}
-		}
-	});
-
-	graph.selectionModel.addListener(mxEvent.EVENT_CHANGE, refreshUi);
-	graph.model.addListener(mxEvent.EVENT_CHANGE, refreshUi);
-	graph.addListener(mxEvent.REFRESH, refreshUi);
-
-	var footer = document.createElement('div');
-	footer.style.boxSizing = 'border-box';
-	footer.style.position = 'absolute';
-	footer.style.userSelect = 'none';
-	footer.style.bottom = '0px';
-	footer.style.height = '42px';
-	footer.style.right = '10px';
-	footer.style.left = '10px';
-
-	// TODO: Write help topic and add link
-	/*
-	var helpBtn = mxUtils.button(mxResources.get('help'), function()
-	{
-		editorUi.openLink('');
-	});
-
-	helpBtn.className = 'geBtn';
-	helpBtn.style.marginRight = '4px';
-	
-	if (editorUi.isOffline() && !mxClient.IS_CHROMEAPP)
-	{
-		helpBtn.style.display = 'none';
-	}
-	
-	footer.appendChild(helpBtn);*/
-
-	if (graph.isEnabled())
-	{
-		footer.appendChild(addBtn);
-	}
-
-	div.appendChild(footer);
-
+	var div = tagsComponent.div;
 	this.window = new mxWindow(mxResources.get('tags'), div, x, y, w, h, true, true);
+	this.window.minimumSize = new mxRectangle(0, 0, 212, 120);
 	this.window.destroyOnClose = false;
 	this.window.setMaximizable(false);
 	this.window.setResizable(true);
 	this.window.setClosable(true);
 
-	this.window.contentWrapper.style.height = '100%';
-	this.window.table.style.minHeight = '40px';
-	this.window.table.style.minWidth = '200px';
-	this.window.div.style.minHeight = this.window.table.style.minHeight;
-	this.window.div.style.minWidth = this.window.table.style.minWidth;
-
 	this.window.addListener('show', mxUtils.bind(this, function()
 	{
-		refreshUi();
+		tagsComponent.refresh();
 		this.window.fit();
 	}));
 	
@@ -9352,6 +8977,7 @@ var LibraryDialog = function(editorUi, name, library, initialImages, file, mode)
 					wrapper.setAttribute('draggable', 'true');
 					wrapper.style.display = 'inline-block';
 					wrapper.style.position = 'relative';
+					wrapper.style.padding = '0 12px';
 					wrapper.style.cursor = 'move';
 					mxUtils.setPrefixedStyle(wrapper.style, 'transition', 'transform .1s ease-in-out');
 					
@@ -9383,7 +9009,7 @@ var LibraryDialog = function(editorUi, name, library, initialImages, file, mode)
 					}
 					
 					var rem = document.createElement('img');
-					rem.setAttribute('src', Editor.closeImage);
+					rem.setAttribute('src', Editor.closeBlackImage);
 					rem.setAttribute('border', '0');
 					rem.setAttribute('title', mxResources.get('delete'));
 					rem.setAttribute('align', 'top');
@@ -11958,7 +11584,7 @@ var FontDialog = function(editorUi, curFontname, curUrl, curType, fn)
 	td.style.whiteSpace = 'nowrap';
 	td.style.fontSize = '10pt';
 	td.style.fontWeight = 'bold';
-	
+
 	var webFontRadio = document.createElement('input');
 	webFontRadio.style.cssText = 'margin-right:8px;margin-bottom:8px;';
 	webFontRadio.setAttribute('value', 'webfonts');
@@ -11973,7 +11599,11 @@ var FontDialog = function(editorUi, curFontname, curUrl, curType, fn)
 	td.appendChild(label);
 	
 	row.appendChild(td);
-	tbody.appendChild(row);
+
+	if (Editor.enableWebFonts)
+	{
+		tbody.appendChild(row);
+	}
 	
 	row = document.createElement('tr');
 	
@@ -11990,7 +11620,14 @@ var FontDialog = function(editorUi, curFontname, curUrl, curType, fn)
 
 	if (curType == 'w')
 	{
-		webFontInput.setAttribute('value', curFontname);
+		if (Editor.enableWebFonts)
+		{
+			webFontInput.setAttribute('value', curFontname);
+		}
+		else
+		{
+			sysFontInput.setAttribute('value', curFontname);
+		}
 	}
 	
 	webFontInput.style.marginLeft = '4px';
@@ -12000,7 +11637,11 @@ var FontDialog = function(editorUi, curFontname, curUrl, curType, fn)
 	td = document.createElement('td');
 	td.appendChild(webFontInput);
 	row.appendChild(td);
-	tbody.appendChild(row);
+
+	if (Editor.enableWebFonts)
+	{
+		tbody.appendChild(row);
+	}
 	
 	row = document.createElement('tr');
 	
@@ -12022,7 +11663,11 @@ var FontDialog = function(editorUi, curFontname, curUrl, curType, fn)
 	td = document.createElement('td');
 	td.appendChild(webFontUrlInput);
 	row.appendChild(td);
-	tbody.appendChild(row);
+
+	if (Editor.enableWebFonts)
+	{
+		tbody.appendChild(row);
+	}
 	
 	this.init = function()
 	{
@@ -12032,7 +11677,7 @@ var FontDialog = function(editorUi, curFontname, curUrl, curType, fn)
 		{
 			input = googleFontInput;
 		}
-		else if (curType == 'w')
+		else if (curType == 'w' && Editor.enableWebFonts)
 		{
 			input = webFontInput;
 		}
@@ -12272,7 +11917,7 @@ AspectDialog.prototype.init = function()
 	}
 };
 
-AspectDialog.prototype.createViewer = function(container, pageNode, layerId)
+AspectDialog.prototype.createViewer = function(container, pageNode, layerId, defaultBackground)
 {
 	mxEvent.disableContextMenu(container);
 	container.style.userSelect = 'none';
@@ -12293,7 +11938,7 @@ AspectDialog.prototype.createViewer = function(container, pageNode, layerId)
 		
 		if (bg == null || bg == '' || bg == mxConstants.NONE)
 		{
-			bg = '#ffffff';
+			bg = (defaultBackground != null) ? defaultBackground : '#ffffff';
 		}
 		
 		container.style.backgroundColor = bg;

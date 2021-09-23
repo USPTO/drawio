@@ -2121,11 +2121,20 @@ EditorUi.prototype.initCanvas = function()
 			this.chromelessToolbar.style.overflow = 'hidden';
 			this.chromelessToolbar.style.boxSizing = 'border-box';
 			this.chromelessToolbar.style.whiteSpace = 'nowrap';
-			this.chromelessToolbar.style.backgroundColor = '#000000';
 			this.chromelessToolbar.style.padding = '10px 10px 8px 10px';
 			this.chromelessToolbar.style.left = (graph.isViewer()) ? '0' : '50%';
+
+			if (!mxClient.IS_IE && !mxClient.IS_IE11)
+			{
+				this.chromelessToolbar.style.backgroundColor = '#000000';
+			}
+			else
+			{
+				this.chromelessToolbar.style.backgroundColor = '#ffffff';
+				this.chromelessToolbar.style.border = '3px solid black';
+			}
 			
-			mxUtils.setPrefixedStyle(this.chromelessToolbar.style, 'borderRadius', '20px');
+			mxUtils.setPrefixedStyle(this.chromelessToolbar.style, 'borderRadius', '16px');
 			mxUtils.setPrefixedStyle(this.chromelessToolbar.style, 'transition', 'opacity 600ms ease-in-out');
 			
 			var updateChromelessToolbarPosition = mxUtils.bind(this, function()
@@ -2166,6 +2175,8 @@ EditorUi.prototype.initCanvas = function()
 				var img = document.createElement('img');
 				img.setAttribute('border', '0');
 				img.setAttribute('src', imgSrc);
+				img.style.width = '36px';
+				img.style.filter = 'invert(100%)';
 				
 				a.appendChild(img);
 				this.chromelessToolbar.appendChild(a);
@@ -2179,7 +2190,7 @@ EditorUi.prototype.initCanvas = function()
 				{
 					window.location.href = toolbarConfig.backBtn.url;
 					mxEvent.consume(evt);
-				}), Editor.backLargeImage, mxResources.get('back', null, 'Back'));
+				}), Editor.backImage, mxResources.get('back', null, 'Back'));
 			}
 			
 			if (this.isPagesEnabled())
@@ -2188,22 +2199,32 @@ EditorUi.prototype.initCanvas = function()
 				{
 					this.actions.get('previousPage').funct();
 					mxEvent.consume(evt);
-				}), Editor.previousLargeImage, mxResources.get('previousPage'));
+				}), Editor.previousImage, mxResources.get('previousPage'));
 				
 				var pageInfo = document.createElement('div');
+				pageInfo.style.fontFamily = Editor.defaultHtmlFont;
 				pageInfo.style.display = 'inline-block';
 				pageInfo.style.verticalAlign = 'top';
-				pageInfo.style.fontFamily = 'Helvetica,Arial';
-				pageInfo.style.marginTop = '10px';
+				pageInfo.style.fontWeight = 'bold';
+				pageInfo.style.marginTop = '8px';
 				pageInfo.style.fontSize = '14px';
-				pageInfo.style.color = '#ffffff';
+
+				if (!mxClient.IS_IE && !mxClient.IS_IE11)
+				{
+					pageInfo.style.color = '#ffffff';
+				}
+				else
+				{
+					pageInfo.style.color = '#000000';
+				}
+
 				this.chromelessToolbar.appendChild(pageInfo);
 				
 				var nextButton = addButton(mxUtils.bind(this, function(evt)
 				{
 					this.actions.get('nextPage').funct();
 					mxEvent.consume(evt);
-				}), Editor.nextLargeImage, mxResources.get('nextPage'));
+				}), Editor.nextImage, mxResources.get('nextPage'));
 				
 				var updatePageInfo = mxUtils.bind(this, function()
 				{
@@ -2245,13 +2266,13 @@ EditorUi.prototype.initCanvas = function()
 			{
 				this.actions.get('zoomOut').funct();
 				mxEvent.consume(evt);
-			}), Editor.zoomOutLargeImage, mxResources.get('zoomOut') + ' (Alt+Mousewheel)');
+			}), Editor.zoomOutImage, mxResources.get('zoomOut') + ' (Alt+Mousewheel)');
 			
 			addButton(mxUtils.bind(this, function(evt)
 			{
 				this.actions.get('zoomIn').funct();
 				mxEvent.consume(evt);
-			}), Editor.zoomInLargeImage, mxResources.get('zoomIn') + ' (Alt+Mousewheel)');
+			}), Editor.zoomInImage, mxResources.get('zoomIn') + ' (Alt+Mousewheel)');
 			
 			addButton(mxUtils.bind(this, function(evt)
 			{
@@ -2274,7 +2295,7 @@ EditorUi.prototype.initCanvas = function()
 				}
 				
 				mxEvent.consume(evt);
-			}), Editor.actualSizeLargeImage, mxResources.get('fit'));
+			}), Editor.zoomFitImage, mxResources.get('fit'));
 	
 			// Changes toolbar opacity on hover
 			var fadeThread = null;
@@ -2338,7 +2359,7 @@ EditorUi.prototype.initCanvas = function()
 					}
 					else
 					{
-						this.layersDialog = graph.createLayersDialog();
+						this.layersDialog = graph.createLayersDialog(null, true);
 						
 						mxEvent.addListener(this.layersDialog, 'mouseleave', mxUtils.bind(this, function()
 						{
@@ -2350,32 +2371,43 @@ EditorUi.prototype.initCanvas = function()
 						
 						mxUtils.setPrefixedStyle(this.layersDialog.style, 'borderRadius', '5px');
 						this.layersDialog.style.position = 'fixed';
-						this.layersDialog.style.fontFamily = 'Helvetica,Arial';
-						this.layersDialog.style.backgroundColor = '#000000';
+						this.layersDialog.style.fontFamily = Editor.defaultHtmlFont;
 						this.layersDialog.style.width = '160px';
 						this.layersDialog.style.padding = '4px 2px 4px 2px';
-						this.layersDialog.style.color = '#ffffff';
-						mxUtils.setOpacity(this.layersDialog, 70);
 						this.layersDialog.style.left = r.left + 'px';
 						this.layersDialog.style.bottom = parseInt(this.chromelessToolbar.style.bottom) +
 							this.chromelessToolbar.offsetHeight + 4 + 'px';
-						
+
+						if (!mxClient.IS_IE && !mxClient.IS_IE11)
+						{
+							this.layersDialog.style.backgroundColor = '#000000';
+							this.layersDialog.style.color = '#ffffff';
+							mxUtils.setOpacity(this.layersDialog, 80);
+						}
+						else
+						{
+							this.layersDialog.style.backgroundColor = '#ffffff';
+							this.layersDialog.style.border = '2px solid black';
+							this.layersDialog.style.color = '#000000';
+						}
+
 						// Puts the dialog on top of the container z-index
 						var style = mxUtils.getCurrentStyle(this.editor.graph.container);
 						this.layersDialog.style.zIndex = style.zIndex;
 						
 						document.body.appendChild(this.layersDialog);
+						this.editor.fireEvent(new mxEventObject('layersDialogShown'));
 					}
 					
 					mxEvent.consume(evt);
-				}), Editor.layersLargeImage, mxResources.get('layers'));
+				}), Editor.layersImage, mxResources.get('layers'));
 				
 				// Shows/hides layers button depending on content
 				var model = graph.getModel();
 	
 				model.addListener(mxEvent.CHANGE, function()
 				{
-					 layersButton.style.display = (model.getChildCount(model.root) > 1) ? '' : 'none';
+					layersButton.style.display = (model.getChildCount(model.root) > 1) ? '' : 'none';
 				});
 			}
 	
@@ -2402,7 +2434,7 @@ EditorUi.prototype.initCanvas = function()
 					}
 					
 					mxEvent.consume(evt);
-				}), Editor.editLargeImage, mxResources.get('edit'));
+				}), Editor.editImage, mxResources.get('edit'));
 			}
 			
 			if (this.lightboxToolbarActions != null)
@@ -2428,7 +2460,7 @@ EditorUi.prototype.initCanvas = function()
 					}
 					
 					mxEvent.consume(evt);
-				}), Editor.refreshLargeImage, mxResources.get('refresh', null, 'Refresh'));
+				}), Editor.refreshImage, mxResources.get('refresh', null, 'Refresh'));
 			}
 
 			if (toolbarConfig.fullscreenBtn != null && window.self !== window.top)
@@ -2445,7 +2477,7 @@ EditorUi.prototype.initCanvas = function()
 					}
 					
 					mxEvent.consume(evt);
-				}), Editor.fullscreenLargeImage, mxResources.get('openInNewWindow', null, 'Open in New Window'));
+				}), Editor.fullscreenImage, mxResources.get('openInNewWindow', null, 'Open in New Window'));
 			}
 			
 			if ((toolbarConfig.closeBtn && window.self === window.top) ||
@@ -2462,7 +2494,7 @@ EditorUi.prototype.initCanvas = function()
 						this.destroy();
 						mxEvent.consume(evt);
 					}
-				}), Editor.closeLargeImage, mxResources.get('close') + ' (Escape)');
+				}), Editor.closeImage, mxResources.get('close') + ' (Escape)');
 			}
 	
 			// Initial state invisible
@@ -2495,6 +2527,9 @@ EditorUi.prototype.initCanvas = function()
 			
 			mxEvent.addListener(this.chromelessToolbar, 'mouseenter', mxUtils.bind(this, function(evt)
 			{
+				graph.tooltipHandler.resetTimer();
+				graph.tooltipHandler.hideTooltip();
+
 				if (!mxEvent.isShiftDown(evt))
 				{
 					fadeIn(100);
@@ -2960,7 +2995,7 @@ EditorUi.prototype.addChromelessToolbarItems = function(addButton)
 	{
 		this.actions.get('print').funct();
 		mxEvent.consume(evt);
-	}), Editor.printLargeImage, mxResources.get('print'));	
+	}), Editor.printImage, mxResources.get('print'));	
 };
 
 /**

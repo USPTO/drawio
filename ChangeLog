@@ -1,3 +1,121 @@
+22-SEP-2021: 15.3.0
+
+- Fixes handling folder error while loading preview
+- Fixes svg/png with dark theme, background pages
+- Escapes HTML entities in file titles
+- Escaped innerHTML when mxResources is used in ODPicker
+- Fixes cellToClone is not defined
+- Adds electrical shapes
+- Updates pt-br translation. Thanks to Marcelo Filho.
+
+16-SEP-2021: 15.2.9
+
+- Fixes OneDrive inline picker script not loaded
+
+16-SEP-2021: 15.2.8
+
+- Moves enableWebFonts switch to Editor
+- Fixes inconsistent naming for shadowOptionEnabled
+- Adds more label flexibility to C4 Database shape
+- Uses SVG for spinner in sketch and min theme
+- Hides title and container option for HTML table
+- Adds colspan in test mode
+- Fixes duplicate rounded style for flexArrow
+- [gliffy import] Fixes svg image clipping (#DID-1443 and #DID-3137)
+- Adds comment for embedded SVG files
+- Using OneDrive inline picker by default
+
+14-SEP-2021: 15.2.7
+
+- Fixes possible use of undefined FontDialog
+
+14-SEP-2021: 15.2.6
+
+- Fixes SVG export in IE, adds more status hashes
+- Removes inline styles for status messages
+- Adds FontDialog.enableWebFonts switch
+- Removes unsafe-inline style-src for se CSP outputs
+- [electron] Fixes issue using old remote in Init.js (disabled localStorage)
+
+13-SEP-2021: 15.2.5
+
+- Uses DOM API for SVG gradients
+- Uses unsafe-inline style-src for se in production
+- Fixes possible NPE on cssText
+
+13-SEP-2021: 15.2.4
+
+- Internal build
+
+13-SEP-2021: 15.2.3
+
+- Fixes background color issues for some shapes
+
+13-SEP-2021: 15.2.2
+
+- Fixes possible NPE due to getAllTags scope
+- Fixes drop target detection with live preview and guides
+- Adds safe-style-src URL parameter
+
+12-SEP-2021: 15.2.1
+
+- Uses icon to toggle layer visibility
+- Hides tooltip when entering chromeless toolbar
+- Handles default color in dialogs
+- Improves handling of default colors for dark mode
+- Fixes inconsistent modifier keys for connections
+
+10-SEP-2021: 15.2.0
+
+- Consolidates icons
+- Fixes scrollbars in dialog for iOS
+- Fixes CSS selector for chromeless toolbar controls
+- Fixes default label background color for vertices https://github.com/jgraph/drawio/issues/2238
+- Adds default, fixes lane color in dark mode https://github.com/jgraph/drawio/issues/2239
+- Uses OS font for application user interface https://github.com/jgraph/drawio-desktop/issues/514
+- Enables tags in all viewers, removes unused images
+- Disables dark mode in IE
+- [lucid import] Fixes issues with group ordering and freehand stencils
+- Removes double click handling in tags dialog
+
+09-SEP-2021: 15.1.4
+
+- Fixes spacing and sizes in tags dialog
+- Adds tags to viewer, SVG icons to layers dialog
+- [vsdx import] Fixes invalid attribute error when input data is not suitable for html
+- Fixes text overflow in dialogs
+- Uses static viewer with no dynamic loading
+
+08-SEP-2021: 15.1.3
+
+- Internal release
+
+08-SEP-2021: 15.1.2
+
+- Adds tags option for export to lightbox
+- Adds SVG icons for some markers
+- Ignores ghosted waypoints in context menu
+- Fixes edge context menu on some devices DID-3284
+- Adds tags in view menu
+- Makes tags case-sensitive
+- Moves tag click handler to table cell
+- Moves tag double click handler to table cell
+- Shows all tags after double click or shift click
+- Fixes initial dialog size
+- Fixes scrollbar in dialog
+
+07-SEP-2021: 15.1.1
+
+- Uses SVG for large toolbar icons
+- Adds createTagsDialog and double click handler
+- Uses dbl click for selection or highlight
+- Adds tags URL parameter for lightbox (beta)
+- Disables sketch style for specific shapes by default
+- Adds support for tags in lightbox
+- [o365] Updates Office.ui.messageParent with targetOrigin
+- Fixes possible duplicate cells, event names
+- Fixes tags in custom actions https://github.com/jgraph/drawio/issues/2228
+
 06-SEP-2021: 15.1.0
 
 - Fixes link handling in viewer https://github.com/jgraph/drawio/issues/2220

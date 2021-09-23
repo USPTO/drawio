@@ -265,7 +265,6 @@ App.DROPINS_URL = 'https://www.dropbox.com/static/api/2/dropins.js';
  * But it doesn't work for IE11, so we fallback to the original one
  */
 App.ONEDRIVE_URL = mxClient.IS_IE11? 'https://js.live.net/v7.2/OneDrive.js' : window.DRAWIO_BASE_URL + '/js/onedrive/OneDrive.js';
-App.ONEDRIVE_INLINE_PICKER_URL = window.DRAWIO_BASE_URL + '/js/onedrive/mxODPicker.js';
 
 /**
  * Trello URL
@@ -517,16 +516,13 @@ App.getStoredMode = function()
 						if (App.mode == App.MODE_ONEDRIVE || (window.location.hash != null &&
 							window.location.hash.substring(0, 2) == '#W'))
 						{
-							if (urlParams['inlinePicker'] == '1' || mxClient.IS_ANDROID || mxClient.IS_IOS)
+							if (urlParams['inlinePicker'] == '0')
 							{
-								mxscript(App.ONEDRIVE_INLINE_PICKER_URL, function()
-								{
-									window.OneDrive = {}; //Needed to allow code that check its existance to work BUT it's not used 
-								});
+								mxscript(App.ONEDRIVE_URL);
 							}
 							else
 							{
-								mxscript(App.ONEDRIVE_URL);
+								window.OneDrive = {}; //Needed to allow code that check its existance to work BUT it's not used 
 							}
 						}
 						else if (urlParams['chrome'] == '0')
@@ -958,17 +954,14 @@ App.main = function(callback, createUi)
 						urlParams['od'] == '1')) && (navigator.userAgent == null ||
 						navigator.userAgent.indexOf('MSIE') < 0 || document.documentMode >= 10))))
 					{
-						if (urlParams['inlinePicker'] == '1' || mxClient.IS_ANDROID || mxClient.IS_IOS)
+						if (urlParams['inlinePicker'] == '0')
 						{
-							mxscript(App.ONEDRIVE_INLINE_PICKER_URL, function()
-							{
-								window.OneDrive = {}; //Needed to allow code that check its existance to work BUT it's not used 
-								window.DrawOneDriveClientCallback();
-							});
+							mxscript(App.ONEDRIVE_URL, window.DrawOneDriveClientCallback);
 						}
 						else
 						{
-							mxscript(App.ONEDRIVE_URL, window.DrawOneDriveClientCallback);
+							window.OneDrive = {}; //Needed to allow code that check its existance to work BUT it's not used 
+							window.DrawOneDriveClientCallback();
 						}
 					}
 					// Disables client
@@ -1735,8 +1728,7 @@ App.prototype.init = function()
 					
 					var status = mxUtils.htmlEntities(mxResources.get('timeout'));
 					this.editor.setStatus('<div title="'+ status +
-						'" class="geStatusAlert" style="overflow:hidden;">' + status +
-						'</div>');
+						'" class="geStatusAlert">' + status + '</div>');
 				}
 				
 				EditorUi.logEvent({category: 'TIMEOUT-CACHE-CHECK', action: 'timeout', label: 408});
@@ -2364,17 +2356,19 @@ App.prototype.getThumbnail = function(width, fn)
 		if (this.pages != null && (darkTheme || this.currentPage != this.pages[0]))
 		{
 			var graphGetGlobalVariable = graph.getGlobalVariable;
-			graph = this.createTemporaryGraph((darkTheme) ? graph.getDefaultStylesheet() : graph.getStylesheet());
+			graph = this.createTemporaryGraph((darkTheme) ?
+				graph.getDefaultStylesheet() : graph.getStylesheet());
+			graph.setBackgroundImage = this.editor.graph.setBackgroundImage;
 			var page = this.pages[0];
 
-			if (page.viewState != null && page.viewState != null)
+			if (this.currentPage == page)
+			{
+				graph.setBackgroundImage(bgImg);
+			}
+			else if (page.viewState != null && page.viewState != null)
 			{
 				bgImg = page.viewState.backgroundImage;
-				graph.backgroundImage = bgImg;
-			}
-			else if (this.currentPage == this.pages[0])
-			{
-				graph.backgroundImage = bgImg;
+				graph.setBackgroundImage(bgImg);
 			}
 
 			// Avoids override of stylesheet in getSvg for dark mode
@@ -5347,7 +5341,8 @@ App.prototype.loadFile = function(id, sameWindow, file, success, force)
 							// Shows a warning if a copy was opened which happens
 							// eg. for .png files in IE as they cannot be written
 							var status = mxResources.get('copyCreated');
-							this.editor.setStatus('<div title="'+ status + '" class="geStatusAlert" style="overflow:hidden;">' + status + '</div>');
+							this.editor.setStatus('<div title="'+ status +
+								'" class="geStatusAlert">' + status + '</div>');
 						}
 						
 						if (success != null)
@@ -6261,7 +6256,7 @@ App.prototype.exportFile = function(data, filename, mimeType, base64Encoded, mod
 			{
 				// TODO: Add callback with url param for clickable status message
 				// "File exported. Click here to open folder."
-//				this.editor.setStatus('<div class="geStatusMessage" style="cursor:pointer;">' +
+//				this.editor.setStatus('<div class="geStatusMessage">' +
 //					mxResources.get('saved') + '</div>');
 //				
 //				// Installs click handler for opening
@@ -6271,6 +6266,8 @@ App.prototype.exportFile = function(data, filename, mimeType, base64Encoded, mod
 //					
 //					if (links.length > 0)
 //					{
+//						links[0].style.cursor = 'pointer';
+//
 //						mxEvent.addListener(links[0], 'click', mxUtils.bind(this, function()
 //						{
 //							if (resp != null && resp.id != null)

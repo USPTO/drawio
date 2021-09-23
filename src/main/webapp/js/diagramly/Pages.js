@@ -325,7 +325,7 @@ EditorUi.prototype.getPageById = function(id)
 /**
  * Returns the background image for the given page link.
  */
-EditorUi.prototype.createImageForPageLink = function(src, sourcePage)
+EditorUi.prototype.createImageForPageLink = function(src, sourcePage, sourceGraph)
 {
 	var comma = src.indexOf(',');
 	var result = null;
@@ -336,7 +336,7 @@ EditorUi.prototype.createImageForPageLink = function(src, sourcePage)
 
 		if (page != null && page != sourcePage)
 		{
-			result = this.getImageForPage(page, sourcePage);
+			result = this.getImageForPage(page, sourcePage, sourceGraph);
 			result.originalSrc = src;
 		}
 	}
@@ -352,10 +352,11 @@ EditorUi.prototype.createImageForPageLink = function(src, sourcePage)
 /**
  * Returns true if the given string contains an mxfile.
  */
-EditorUi.prototype.getImageForPage = function(page, sourcePage)
+EditorUi.prototype.getImageForPage = function(page, sourcePage, sourceGraph)
 {
-	var graphGetGlobalVariable = this.editor.graph.getGlobalVariable;
-	var graph = this.createTemporaryGraph(this.editor.graph.getStylesheet());
+	sourceGraph = (sourceGraph != null) ? sourceGraph : this.editor.graph;
+	var graphGetGlobalVariable = sourceGraph.getGlobalVariable;
+	var graph = this.createTemporaryGraph(sourceGraph.getStylesheet());
 	var index = this.getPageIndex((sourcePage != null) ?
 		sourcePage : this.currentPage);
 
@@ -379,7 +380,8 @@ EditorUi.prototype.getImageForPage = function(page, sourcePage)
 
 	this.updatePageRoot(page);
 	graph.model.setRoot(page.root);
-	var svgRoot = graph.getSvg();
+	var svgRoot = graph.getSvg(null, null, null, null, null,
+		null, null, null, null, null, null, true);
 	var bounds = graph.getGraphBounds();
 	document.body.removeChild(graph.container);
 
@@ -1485,14 +1487,18 @@ EditorUi.prototype.createControlTab = function(paddingTop, html, hoverEnabled)
  */
 EditorUi.prototype.createPageMenuTab = function(hoverEnabled)
 {
-	var tab = this.createControlTab(3, '<div class="geSprite geSprite-dots" ' +
-		'style="display:inline-block;margin-top:5px;width:21px;height:21px;"></div>',
-		hoverEnabled);
+	var tab = this.createControlTab(3, '<div class="geSprite geSprite-dots"></div>', hoverEnabled);
 	tab.setAttribute('title', mxResources.get('pages'));
 	tab.style.position = 'absolute';
 	tab.style.marginLeft = '0px';
 	tab.style.top = '0px';
 	tab.style.left = '1px';
+	
+	var div = tab.getElementsByTagName('div')[0];
+	div.style.display = 'inline-block';
+	div.style.marginTop = '5px';
+	div.style.width = '21px';
+	div.style.height = '21px';
 	
 	mxEvent.addListener(tab, 'click', mxUtils.bind(this, function(evt)
 	{
@@ -1587,7 +1593,7 @@ EditorUi.prototype.createPageMenuTab = function(hoverEnabled)
  */
 EditorUi.prototype.createPageInsertTab = function()
 {
-	var tab = this.createControlTab(4, '<div class="geSprite geSprite-plus" style="display:inline-block;width:21px;height:21px;"></div>');
+	var tab = this.createControlTab(4, '<div class="geSprite geSprite-plus"></div>');
 	tab.setAttribute('title', mxResources.get('insertPage'));
 	var graph = this.editor.graph;
 	
@@ -1596,6 +1602,11 @@ EditorUi.prototype.createPageInsertTab = function()
 		this.insertPage();
 		mxEvent.consume(evt);
 	}));
+	
+	var div = tab.getElementsByTagName('div')[0];
+	div.style.display = 'inline-block';
+	div.style.width = '21px';
+	div.style.height = '21px';
 	
 	return tab;
 };
